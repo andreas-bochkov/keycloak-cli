@@ -1,3 +1,10 @@
+# - source it
+# - set parameters once with setKcParameters
+# - inspect parameters with getKcParameters
+#
+# tested with zsh
+#
+
 setKcParameters() {
   [[ "$1" ]] && KC_API_URL=$1 || read "KC_API_URL?Base URL:"
   [[ "$2" ]] && KC_API_REALM=$2 || read "KC_API_REALM?Realm:"
