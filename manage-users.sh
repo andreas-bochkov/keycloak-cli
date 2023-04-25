@@ -81,3 +81,16 @@ getUserToken() {
   --data username=$username \
   --data password=$password
 }
+
+executeAction() {
+  local userId action
+  [[ "$1" ]] && userId=$1 || read "userId?User ID (not name!):"
+  action=${2:-VERIFY_EMAIL}
+  refreshToken
+  curl -s \
+  --request PUT \
+  --url "$KC_API_URL/admin/realms/$KC_API_REALM/users/$userId/execute-actions-email?client_id=$KC_API_CLIENT_ID&lifespan=300" \
+  --header "Authorization: Bearer $accessToken" \
+  --header 'Content-Type: application/json' \
+  --data "[\"$action\"]"
+}
